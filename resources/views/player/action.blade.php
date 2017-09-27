@@ -1,0 +1,2 @@
+<a class="btn btn-default" href='{!! url("player/$id/edit") !!}' data-toggle="modal" data-target="#myModal"><em class="fa fa-pencil"></em></a>
+<a class="btn btn-danger" href='{!! url("player/$id/delete") !!}' data-toggle="modal" data-target="#myModal"><em class="fa fa-trash"></em></a>
