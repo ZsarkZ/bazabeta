@@ -1,5 +1,5 @@
 <?php
-
+ 
 namespace App\DataTables;
 
 use App\Player;
@@ -9,7 +9,7 @@ use Yajra\DataTables\EloquentDataTable;
 class PlayerDataTable extends DataTable
 {
     /**
-     * Build DataTable class.
+     * Build DataTable class.test ftp
      *
      * @param mixed $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
