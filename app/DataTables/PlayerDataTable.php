@@ -9,7 +9,7 @@ use Yajra\DataTables\EloquentDataTable;
 class PlayerDataTable extends DataTable
 {
     /**
-     * Build DataTable class.test ftp
+     * Build DataTable class.
      *
      * @param mixed $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
