@@ -17,6 +17,9 @@ Route::group([ 'middleware' => [ 'web', 'auth' ] ], function (\Illuminate\Routin
 
 	Route::get('/home', 'HomeController@index')->name('home');
 
+	Route::resource('country', 'CountryController');
+	Route::get('/country/{id}/delete', 'CountryController@delete');
+
 	Route::resource('sport', 'SportController');
 	Route::get('/sport/{id}/delete', 'SportController@delete');
 
@@ -29,8 +32,8 @@ Route::group([ 'middleware' => [ 'web', 'auth' ] ], function (\Illuminate\Routin
 	Route::resource('tournament', 'TournamentController');
 	Route::get('/tournament/{id}/delete', 'TournamentController@delete');
 
-	Route::resource('country', 'CountryController');
-	Route::get('/country/{id}/delete', 'CountryController@delete');
+	Route::resource('game', 'GameController');
+	Route::get('/game/{id}/delete', 'GameController@delete');
 });
 
 Auth::routes();

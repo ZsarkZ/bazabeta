@@ -22,4 +22,9 @@ class Sport extends Model
     {
         return $this->hasMany('App\Tournament');
     }
+
+    public function Games()
+    {
+        return $this->hasMany('App\Game');
+    }
 }

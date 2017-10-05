@@ -3,24 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\PlayerRequest;
-use App\DataTables\PlayerDataTable;
-use App\Team;
-use App\Sport;
-use App\Player;
+use App\Http\Requests\GameRequest;
+use App\DataTables\GameDataTable;
 use App\Country;
+use App\Sport;
+use App\Team;
+use App\Player;
+use App\Tournament;
+use App\Game;
 
-class PlayerController extends Controller
+class GameController extends Controller
 {
     public $selectCountryList;
     public $selectSportList;
     public $selectTeamList;
+    public $selectPlayerList;
+    public $selectTournamentList;
 
     public function __construct()
     {
         $this->selectCountryList = Country::pluck('name', 'id');
         $this->selectSportList = Sport::pluck('name', 'id');
         $this->selectTeamList = Team::pluck('name', 'id');
+        $this->selectPlayerList = Player::pluck('name', 'id');
+        $this->selectTournamentList = Tournament::pluck('name', 'id');
     }
 
     /**
@@ -28,11 +34,11 @@ class PlayerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(PlayerDataTable $dataTable, Player $model)
+    public function index(GameDataTable $dataTable, Game $model)
     {
         $dataTable->query($model);
 
-        return $dataTable->render('player.index');
+        return $dataTable->render('game.index');
     }
 
      /**
@@ -43,14 +49,14 @@ class PlayerController extends Controller
     public function create(Request $request)
     {
         if(!$request->ajax()){
-            return redirect('player');
+            return redirect('game');
         }
-        
 
-        return view("player.create", [
+        return view("game.create", [
             'selectCountryList' => $this->selectCountryList,
             'selectSportList' => $this->selectSportList, 
             'selectTeamList' => $this->selectTeamList,
+            'selectTournamentList' => $this->selectTournamentList,
 
         ]);
     }
@@ -61,9 +67,9 @@ class PlayerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PlayerRequest $request)
+    public function store(GameRequest $request)
     {
-        Player::create($request->input())->save();
+        Game::create($request->input())->save();
 
         return redirect()->back();
     }
@@ -88,12 +94,12 @@ class PlayerController extends Controller
     public function edit($id, Request $request)
     {
         if(!$request->ajax()){
-            return redirect('player');
+            return redirect('game');
         }
 
-        $model = Player::find($id);
+        $model = Game::find($id);
 
-        return view("player.edit", [
+        return view("game.edit", [
             'selectCountryList' => $this->selectCountryList,
             'selectSportList' => $this->selectSportList,
             'selectTeamList' => $this->selectTeamList,
@@ -108,9 +114,9 @@ class PlayerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id, PlayerRequest $request)
+    public function update($id, GameRequest $request)
     {
-        $model = Player::find($id);
+        $model = Game::find($id);
         $model->fill($request->input())->save();
 
         return redirect()->back();
@@ -125,11 +131,11 @@ class PlayerController extends Controller
     public function delete($id, Request $request)
     {
         if(!$request->ajax()){
-            return redirect('player');
+            return redirect('game');
         }
-        $model = Player::find($id);
+        $model = Game::find($id);
 
-        return view("player.delete", ['model' => $model]);
+        return view("game.delete", ['model' => $model]);
     }
 
     /**
@@ -140,7 +146,7 @@ class PlayerController extends Controller
      */
     public function destroy($id)
     {
-        Player::destroy($id);
+        Game::destroy($id);
 
         return redirect()->back();
     }

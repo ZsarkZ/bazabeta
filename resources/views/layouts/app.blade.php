@@ -42,6 +42,7 @@
                             <li class="{{ Request::is('team') ? 'active' : '' }}"><a href="{{ route('team.index') }}">Teams</a></li>
                             <li class="{{ Request::is('player') ? 'active' : '' }}"><a href="{{ route('player.index') }}">Players</a></li>
                             <li class="{{ Request::is('tournament') ? 'active' : '' }}"><a href="{{ route('tournament.index') }}">Tournaments</a></li>
+                            <li class="{{ Request::is('game') ? 'active' : '' }}"><a href="{{ route('game.index') }}">Games</a></li>
                         </ul>
                     @endif
                     <!-- Right Side Of Navbar -->
