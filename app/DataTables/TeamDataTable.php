@@ -20,7 +20,8 @@ class TeamDataTable extends DataTable
 
         return $dataTable->addColumn('action', 'team.action')
                          ->addColumn('members', '<a href="{{ url("player") }}?sportId={{ $sport_id }}&teamId={{ $id }}">Участники</a>')
-                         ->rawColumns(['members', 'action']);
+                         ->addColumn('games', '<a href="{{ url("game") }}?teamId={{ $id }}">Игры</a>')
+                         ->rawColumns(['members', 'games', 'action']);
     }
 
     /**
@@ -89,6 +90,7 @@ class TeamDataTable extends DataTable
             'name',
             'keywords',
             'members' => ["orderable" => false],
+            'games' => ["orderable" => false],
             'sport' => ['name' => 'sports.name'],
             'country' => ['name' => 'countries.name'],
         ];

@@ -39,15 +39,15 @@ class GameDataTable extends DataTable
                     ->select('games.*', 'sports.name as sport', 'm1.name as member1', 'm2.name as member2', 'countries.name as country', 'tournaments.name as tournament')
                     ->leftJoin('countries', 'countries.id', '=', 'games.country_id')
                     ->leftJoin('sports', 'sports.id', '=', 'games.sport_id')
-                    ->Join('teams as m1', function($join){
-                        return $join->on('m1.id', '=', 'games.member_one')
-                                    ->where('games.gameable_type', '=', 'teams');
-                    })
-                    ->Join('teams as m2', function($join){
-                        return $join->on('m2.id', '=', 'games.member_two')
-                                    ->where('games.gameable_type', '=', 'teams');
-                    })
                     ->leftJoin('tournaments', 'tournaments.id', '=', 'games.tournament_id')
+                    ->Join('players as m1', function($join){
+                        return $join->on('m1.id', '=', 'games.member_one')
+                                    ->where('games.gameable_type', '=', 'players');
+                    })
+                    ->Join('players as m2', function($join){
+                        return $join->on('m2.id', '=', 'games.member_two')
+                                    ->where('games.gameable_type', '=', 'players');
+                    })
                     ->when($sportId, function ($query) use ($sportId) {
                         return $query->where('games.sport_id', $sportId);
                     })
@@ -61,15 +61,15 @@ class GameDataTable extends DataTable
                     ->select('games.*', 'sports.name as sport', 'm1.name as member1', 'm2.name as member2', 'countries.name as country', 'tournaments.name as tournament')
                     ->leftJoin('countries', 'countries.id', '=', 'games.country_id')
                     ->leftJoin('sports', 'sports.id', '=', 'games.sport_id')
-                    ->Join('players as m1', function($join){
-                        return $join->on('m1.id', '=', 'games.member_one')
-                                    ->where('games.gameable_type', '=', 'players');
-                    })
-                    ->Join('players as m2', function($join){
-                        return $join->on('m2.id', '=', 'games.member_two')
-                                    ->where('games.gameable_type', '=', 'players');
-                    })
                     ->leftJoin('tournaments', 'tournaments.id', '=', 'games.tournament_id')
+                    ->Join('teams as m1', function($join){
+                        return $join->on('m1.id', '=', 'games.member_one')
+                                    ->where('games.gameable_type', '=', 'teams');
+                    })
+                    ->Join('teams as m2', function($join){
+                        return $join->on('m2.id', '=', 'games.member_two')
+                                    ->where('games.gameable_type', '=', 'teams');
+                    })
                     ->when($sportId, function ($query) use ($sportId) {
                         return $query->where('games.sport_id', $sportId);
                     })
@@ -99,7 +99,9 @@ class GameDataTable extends DataTable
                         'dom'     => 'Bfrtip',
                         'order'   => [[0, 'asc']],
                         "columnDefs" => [
-                            ["width" => "30px", "targets" => 0]
+                            ["width" => "30px", "targets" => 0],
+                            ["width" => "20px", "targets" => 2],
+                            ["width" => "20px", "targets" => 3]
                         ],
                         'buttons' => [
                             'create',
@@ -120,13 +122,14 @@ class GameDataTable extends DataTable
     {
         return [
             'id',
-            'member1' => ['name' => 't1.name'],
-            'score_one',
-            'score_two',
-            'member2' => ['name' => 't2.name'],
+            'member1' => ['name' => 'm1.name', "orderable" => false],
+            'score_one' => ["orderable" => false],
+            'score_two'=> ["orderable" => false],
+            'member2' => ['name' => 'm2.name', "orderable" => false],
             'date',
-            'sport' => ['name' => 'sports.name'],
-            'country' => ['name' => 'countries.name'],
+            'tournament' => ['name' => 'tournaments.name', "orderable" => false],
+            'sport' => ['name' => 'sports.name', "orderable" => false],
+            'country' => ['name' => 'countries.name', "orderable" => false],
         ];
     }
 
